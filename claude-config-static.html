@@ -1,0 +1,256 @@
+<!-- Claude Code 配置指南 - 富文本编辑器版本 -->
+<div style="max-width: 900px; margin: 20px auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333;">
+
+  <!-- 标题 -->
+  <div style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px 15px 0 0; margin-bottom: 0;">
+    <h1 style="margin: 0 0 10px 0; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Claude Code 配置指南</h1>
+    <p style="margin: 0; font-size: 1.1rem; opacity: 0.9;">完整的跨平台环境配置教程</p>
+  </div>
+
+  <!-- 导航标签 -->
+  <div style="display: flex; background: #f8f9fa; border-bottom: 2px solid #e9ecef; margin: 0;">
+    <div onclick="showTab('windows')" id="tab-windows" style="flex: 1; padding: 15px 20px; text-align: center; cursor: pointer; font-weight: 600; background: #007bff; color: white; border-bottom: 2px solid #0056b3;">
+      🪟 Windows
+    </div>
+    <div onclick="showTab('macos')" id="tab-macos" style="flex: 1; padding: 15px 20px; text-align: center; cursor: pointer; font-weight: 600; color: #6c757d;">
+      🍎 macOS
+    </div>
+    <div onclick="showTab('linux')" id="tab-linux" style="flex: 1; padding: 15px 20px; text-align: center; cursor: pointer; font-weight: 600; color: #6c757d;">
+      🐧 Linux
+    </div>
+  </div>
+
+  <!-- Windows 内容 -->
+  <div id="content-windows" style="display: block; padding: 25px; background: white; border-radius: 0 0 15px 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+    
+    <!-- 方法1 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法1：配置 settings.json（推荐）</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">这是最稳定的配置方式，配置一次永久生效。</p>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤1：</strong> 创建配置文件目录和文件：<code style="background: #f5f5f5; padding: 2px 5px; border-radius: 3px;">%USERPROFILE%\.claude\settings.json</code>
+      </div>
+      
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0; position: relative; overflow-x: auto;">
+        <div style="position: absolute; top: 5px; right: 10px; font-size: 0.8rem; color: #6c757d;">JSON</div>
+<pre style="margin: 0; white-space: pre-wrap;">{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "替换为您的API Key",
+    "ANTHROPIC_BASE_URL": "https://code.tslaai.com",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}</pre>
+      </div>
+      
+      <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 12px; margin: 10px 0; color: #856404;">
+        <strong>⚠️ 注意：</strong> 记得将 "替换为您的API Key" 替换为您真实的API密钥！
+      </div>
+    </div>
+
+    <!-- 方法2 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法2：临时设置（仅当前终端有效）</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">适用于临时测试或不想永久配置的情况。</p>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">PowerShell 中执行：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">$env:ANTHROPIC_BASE_URL="https://code.tslaai.com"
+$env:ANTHROPIC_API_KEY="替换为您的API Key"</pre>
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">CMD 中执行：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">set ANTHROPIC_BASE_URL=https://code.tslaai.com
+set ANTHROPIC_API_KEY=替换为您的API Key</pre>
+      </div>
+    </div>
+
+    <!-- 方法3 -->
+    <div style="border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法3：永久环境变量设置</h3>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤1：</strong> 图形界面方式：右键「此电脑」→「属性」→「高级系统设置」→「环境变量」
+      </div>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤2：</strong> 在「用户变量」中新建：
+        <ul style="margin: 8px 0 0 20px; padding: 0;">
+          <li><strong>ANTHROPIC_BASE_URL</strong>: https://code.tslaai.com</li>
+          <li><strong>ANTHROPIC_API_KEY</strong>: 您的API密钥</li>
+        </ul>
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">或使用 PowerShell 永久设置：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">[System.Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://code.tslaai.com', 'User')
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_API_KEY', '替换为您的API Key', 'User')</pre>
+      </div>
+      <p style="margin: 5px 0 0 0; font-style: italic; color: #666;">重启终端后生效</p>
+    </div>
+  </div>
+
+  <!-- macOS 内容 -->
+  <div id="content-macos" style="display: none; padding: 25px; background: white; border-radius: 0 0 15px 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+    
+    <!-- 方法1 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法1：配置 settings.json（推荐）</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">最稳定可靠的配置方式。</p>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤1：</strong> 创建配置文件：<code style="background: #f5f5f5; padding: 2px 5px; border-radius: 3px;">~/.claude/settings.json</code>
+      </div>
+      
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0; white-space: pre-wrap;">{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "替换为您的API Key",
+    "ANTHROPIC_BASE_URL": "https://code.tslaai.com",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}</pre>
+      </div>
+    </div>
+
+    <!-- 方法2 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法2：临时设置（仅当前终端有效）</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">在终端中执行以下命令：</p>
+      
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">export ANTHROPIC_BASE_URL="https://code.tslaai.com"
+export ANTHROPIC_API_KEY="替换为您的API Key"</pre>
+      </div>
+    </div>
+
+    <!-- 方法3 -->
+    <div style="border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法3：永久设置</h3>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤1：</strong> 根据使用的 shell 编辑对应配置文件
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">如果使用 bash（默认）：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">echo 'export ANTHROPIC_BASE_URL="https://code.tslaai.com"' >> ~/.bash_profile
+echo 'export ANTHROPIC_API_KEY="替换为您的API Key"' >> ~/.bash_profile</pre>
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">如果使用 zsh：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">echo 'export ANTHROPIC_BASE_URL="https://code.tslaai.com"' >> ~/.zshrc
+echo 'export ANTHROPIC_API_KEY="替换为您的API Key"' >> ~/.zshrc</pre>
+      </div>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤2：</strong> 立即生效
+      </div>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">source ~/.bash_profile  # 或 source ~/.zshrc</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linux 内容 -->
+  <div id="content-linux" style="display: none; padding: 25px; background: white; border-radius: 0 0 15px 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+    
+    <!-- 方法1 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法1：临时设置（仅当前终端有效）</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">在终端中执行以下命令：</p>
+      
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">export ANTHROPIC_BASE_URL="https://code.tslaai.com"
+export ANTHROPIC_API_KEY="替换为您的API Key"</pre>
+      </div>
+    </div>
+
+    <!-- 方法2 -->
+    <div style="margin-bottom: 25px; border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法2：永久设置</h3>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤1：</strong> 根据使用的 shell 编辑对应配置文件
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">如果使用 bash：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">echo 'export ANTHROPIC_BASE_URL="https://code.tslaai.com"' >> ~/.bashrc
+echo 'export ANTHROPIC_API_KEY="替换为您的API Key"' >> ~/.bashrc</pre>
+      </div>
+      
+      <h4 style="margin: 15px 0 8px 0; color: #333;">如果使用 zsh：</h4>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">echo 'export ANTHROPIC_BASE_URL="https://code.tslaai.com"' >> ~/.zshrc
+echo 'export ANTHROPIC_API_KEY="替换为您的API Key"' >> ~/.zshrc</pre>
+      </div>
+      
+      <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 10px 0; border-radius: 0 5px 5px 0;">
+        <strong style="color: #1976d2;">步骤2：</strong> 立即生效
+      </div>
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0;">source ~/.bashrc  # 或 source ~/.zshrc</pre>
+      </div>
+    </div>
+
+    <!-- 方法3 -->
+    <div style="border-left: 4px solid #007bff; padding-left: 20px;">
+      <h3 style="color: #007bff; margin: 0 0 10px 0; font-size: 1.2rem;">方法3：配置 settings.json</h3>
+      <p style="margin: 0 0 10px 0; color: #666;">创建 ~/.claude/settings.json 文件，内容如下：</p>
+      
+      <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;">
+<pre style="margin: 0; white-space: pre-wrap;">{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "替换为您的API Key",
+    "ANTHROPIC_BASE_URL": "https://code.tslaai.com",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+function showTab(platform) {
+  // 隐藏所有内容
+  document.getElementById('content-windows').style.display = 'none';
+  document.getElementById('content-macos').style.display = 'none';
+  document.getElementById('content-linux').style.display = 'none';
+  
+  // 重置所有标签样式
+  document.getElementById('tab-windows').style.background = '#f8f9fa';
+  document.getElementById('tab-windows').style.color = '#6c757d';
+  document.getElementById('tab-windows').style.borderBottom = 'none';
+  document.getElementById('tab-macos').style.background = '#f8f9fa';
+  document.getElementById('tab-macos').style.color = '#6c757d';
+  document.getElementById('tab-macos').style.borderBottom = 'none';
+  document.getElementById('tab-linux').style.background = '#f8f9fa';
+  document.getElementById('tab-linux').style.color = '#6c757d';
+  document.getElementById('tab-linux').style.borderBottom = 'none';
+  
+  // 显示选中的内容
+  document.getElementById('content-' + platform).style.display = 'block';
+  
+  // 高亮选中的标签
+  document.getElementById('tab-' + platform).style.background = '#007bff';
+  document.getElementById('tab-' + platform).style.color = 'white';
+  document.getElementById('tab-' + platform).style.borderBottom = '2px solid #0056b3';
+}
+</script>

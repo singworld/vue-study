@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3 组合式API学习 - 计数器示例</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .example {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .count-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>Vue3 组合式API学习</h1>
+            
+            <div class="example">
+                <h2>1. 选项式API (Vue2风格)</h2>
+                <p>计数器: <span class="count-display">{{ optionsCount }}</span></p>
+                <button @click="incrementOptions">增加</button>
+                <button @click="decrementOptions">减少</button>
+                <button @click="resetOptions">重置</button>
+            </div>
+
+            <div class="example">
+                <h2>2. 组合式API (setup函数)</h2>
+                <p>计数器: <span class="count-display">{{ compositionCount }}</span></p>
+                <button @click="incrementComposition">增加</button>
+                <button @click="decrementComposition">减少</button>
+                <button @click="resetComposition">重置</button>
+            </div>
+
+            <div class="example">
+                <h2>3. 计算属性示例</h2>
+                <p>双倍计数: <span class="count-display">{{ doubleCount }}</span></p>
+                <p>计数状态: {{ countStatus }}</p>
+            </div>
+
+            <!-- TODO(human): 在这里添加一个新的示例，演示watch侦听器的使用 -->
+            <div class="example">
+                <h2>4. watch侦听器示例</h2>
+                <p>监听到的值: <span class="count-display">{{ watchCount }}</span></p>
+                <p>变化历史: {{ changeHistory.join(' → ') || '暂无' }}</p>
+                <p>变化次数: {{ changeCount }}</p>
+                <p v-if="alertMessage" style="color: red; font-weight: bold;">{{ alertMessage }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, watch } = Vue;
+        
+        createApp({
+            // 选项式API部分
+            data() {
+                return {
+                    optionsCount: 0
+                }
+            },
+            methods: {
+                incrementOptions() {
+                    this.optionsCount++;
+                },
+                decrementOptions() {
+                    this.optionsCount--;
+                },
+                resetOptions() {
+                    this.optionsCount = 0;
+                }
+            },
+            
+            // 组合式API部分
+            setup() {
+                // 响应式数据
+                const compositionCount = ref(0);
+                const watchCount = ref(0);
+                const changeHistory = ref([]);
+                const changeCount = ref(0);
+                const alertMessage = ref('');
+                
+                // 方法
+                const incrementComposition = () => {
+                    compositionCount.value++;
+                };
+                
+                const decrementComposition = () => {
+                    compositionCount.value--;
+                };
+                
+                const resetComposition = () => {
+                    compositionCount.value = 0;
+                };
+                
+                // 计算属性
+                const doubleCount = computed(() => {
+                    return compositionCount.value * 2;
+                });
+                
+                const countStatus = computed(() => {
+                    if (compositionCount.value === 0) return '起始值';
+                    if (compositionCount.value > 0) return '正数';
+                    return '负数';
+                });
+
+                // watch侦听器 - 增强版
+                watch(compositionCount, (newValue, oldValue) => {
+                    console.log(`值变化了: ${oldValue} → ${newValue}`);
+                    watchCount.value = newValue;
+                    
+                    // 记录变化历史（最多保留5个）
+                    changeHistory.value.push(newValue);
+                    if (changeHistory.value.length > 5) {
+                        changeHistory.value.shift();
+                    }
+                    
+                    // 统计变化次数
+                    changeCount.value++;
+                    
+                    // 特定条件触发警告
+                    if (newValue >= 10) {
+                        alertMessage.value = '⚠️ 计数已达到10或更高！';
+                    } else if (newValue <= -5) {
+                        alertMessage.value = '⚠️ 计数已低于-5！';
+                    } else {
+                        alertMessage.value = '';
+                    }
+                });
+                
+                // 带immediate选项的watch - 立即执行
+                watch(compositionCount, () => {
+                    console.log('immediate watch: 初始值或变化值:', compositionCount.value);
+                }, { immediate: true });
+                
+                // 必须返回所有要在模板中使用的数据和方法
+                return {
+                    compositionCount,
+                    incrementComposition,
+                    decrementComposition,
+                    resetComposition,
+                    doubleCount,
+                    countStatus,
+                    watchCount,
+                    changeHistory,
+                    changeCount,
+                    alertMessage
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
