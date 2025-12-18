@@ -262,7 +262,23 @@
                 </div>
             </div>
             
-            <!-- TODO(human): 在这里添加 provide/inject 跨层通信的示例 -->
+            <!-- Provide/Inject 跨层通信 -->
+            <div class="section">
+                <h2>🌳 Provide/Inject 跨层通信</h2>
+
+                <div class="provide-inject-demo">
+                    <h3>祖先组件（提供数据）</h3>
+                    <p>主题颜色：<input v-model="themeColor" type="color"></p>
+                    <p>用户名：<input v-model="username" placeholder="输入用户名"></p>
+
+                    <div class="tree-structure">
+                        <div style="padding: 10px; background: #e3f2fd; border-radius: 8px; margin-bottom: 10px;">
+                            🏠 根组件（App）
+                        </div>
+                        <parent-provider></parent-provider>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -348,6 +364,41 @@
             `
         };
         
+        // Provide/Inject 深层子组件
+        const DeepChild = {
+            setup() {
+                // TODO(human): 使用 inject 从祖先组件获取数据
+                // 提示：inject 接收两个参数：key 和 可选的默认值
+                // 需要注入的数据：'themeColor' 和 'username'
+
+                return {
+                    // 返回注入的数据，以便在模板中使用
+                };
+            },
+            template: `
+                <div class="tree-node" :style="{ borderColor: injectedTheme }">
+                    <div style="padding: 10px; background: white; border-radius: 8px;">
+                        👶 深层子组件
+                        <p>接收到的主题颜色：<span :style="{ color: injectedTheme, fontWeight: 'bold' }">{{ injectedTheme }}</span></p>
+                        <p>接收到的用户名：<strong>{{ injectedUsername }}</strong></p>
+                    </div>
+                </div>
+            `
+        };
+
+        // 中间层组件（不需要使用数据，只是传递）
+        const ParentProvider = {
+            components: { DeepChild },
+            template: `
+                <div class="tree-node">
+                    <div style="padding: 10px; background: #fff9c4; border-radius: 8px; margin-bottom: 10px;">
+                        👨 中间层组件（不使用provide/inject数据）
+                    </div>
+                    <deep-child></deep-child>
+                </div>
+            `
+        };
+
         // defineExpose 演示组件
         const ExposeDemo = {
             setup() {
@@ -383,7 +434,8 @@
             components: {
                 LifecycleDemo,
                 ChildComponent,
-                ExposeDemo
+                ExposeDemo,
+                ParentProvider
             },
             setup() {
                 // 生命周期相关
@@ -458,7 +510,14 @@
                 onMounted(() => {
                     console.log('App mounted');
                 });
-                
+
+                // Provide/Inject - 提供数据给所有后代组件
+                const themeColor = ref('#667eea');
+                const username = ref('Vue学习者');
+
+                provide('themeColor', themeColor);
+                provide('username', username);
+
                 return {
                     // 生命周期
                     showLifecycleDemo,
@@ -483,7 +542,11 @@
                     focusInput,
                     getInputValue,
                     callExposedMethod,
-                    getExposedData
+                    getExposedData,
+
+                    // Provide/Inject
+                    themeColor,
+                    username
                 };
             }
         });

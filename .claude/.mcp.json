@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {}
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {}
+    },
+    "magic": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic"
+      ],
+      "env": {
+        "API_KEY": "b2e6c4964a39bba7c5bd176debc22800f202852982f29710357f08f97badbce1"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--extension"
+      ],
+      "env": {}
+    },
+    "postgres": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://postgres:Rebound123@1.15.134.199:5432/nmis"
+      ],
+      "env": {}
+    }
+  }
+}
