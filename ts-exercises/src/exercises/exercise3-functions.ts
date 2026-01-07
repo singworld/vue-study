@@ -35,8 +35,7 @@ function isEven(num: number) :boolean {
 // 如果有 lastName，返回 "firstName lastName"
 // 如果没有，只返回 firstName
 
-function fullName(firstName, lastName?) {
-  // 在这里实现...
+function fullName(firstName: string, lastName?: string): string {
   return lastName ? `${firstName} ${lastName}` : firstName
 }
 
@@ -45,11 +44,11 @@ function fullName(firstName, lastName?) {
 // TODO(human): 为没有返回值的函数添加 void 类型
 // 提示：function xxx(): void
 
-function logMessage(message) {
+function logMessage(message: string): void {
   console.log(`[LOG] ${message}`)
 }
 
-function printUser(name, age) {
+function printUser(name: string, age: number): void {
   console.log(`用户: ${name}, 年龄: ${age}`)
 }
 
@@ -66,7 +65,7 @@ const multiply = (a, b) => {
 // 方式2：(参数类型) => 返回类型
 // 提示：const divide: (a: number, b: number) => number = ...
 
-const divide = (a, b) => {
+const divide = (a: number, b: number) :number => {
   return a / b
 }
 
@@ -82,7 +81,7 @@ const divide = (a, b) => {
 // arr2Str([1, 2, 3]) => '1,2,3'
 // arr2Str(['a', 'b'], '-') => 'a-b'
 
-function arr2Str(arr, separator) {
+function arr2Str(arr: (number | string)[], separator?: string) :string {
   // 在这里实现...
   return arr.join(separator ?? ',')
 }

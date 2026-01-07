@@ -37,10 +37,10 @@ interface Response<T> {
 }
 
 // 使用泛型接口（取消注释验证）
-// type UserData = { id: number; name: string }
-// type ProductData = { id: number; title: string; price: number }
-// const userRes: Response<UserData> = { code: 200, message: 'ok', data: { id: 1, name: '张三' } }
-// const productRes: Response<ProductData> = { code: 200, message: 'ok', data: { id: 1, title: '手机', price: 999 } }
+type UserData = { id: number; name: string }
+type ProductData = { id: number; title: string; price: number }
+const userRes: Response<UserData> = { code: 200, message: 'ok', data: { id: 1, name: '张三' } }
+const productRes: Response<ProductData> = { code: 200, message: 'ok', data: { id: 1, title: '手机', price: 999 } }
 
 // ==================== 第二部分：泛型类型别名 ====================
 
@@ -52,6 +52,9 @@ interface Response<T> {
 
 type Result<T> = {
   // 在这里定义...
+  success: boolean
+  data: T | null
+  error?: string
 }
 
 // ==================== 第三部分：泛型函数 ====================
@@ -67,7 +70,7 @@ type Result<T> = {
 
 function createArray<T>(length: number, value: T): T[] {
   // TODO(human): 实现函数逻辑
-  return []
+  return Array(length).fill(value)
 }
 
 // TODO(human): 实现一个泛型函数 getFirst
@@ -77,7 +80,7 @@ function createArray<T>(length: number, value: T): T[] {
 
 function getFirst<T>(arr: T[]): T | undefined {
   // TODO(human): 实现函数逻辑
-  return undefined
+  return arr[0]
 }
 
 // ==================== 第四部分：泛型约束 ====================
@@ -146,12 +149,12 @@ export function validateExercise5() {
     results.push('✅ createArray 函数正确')
   }
 
-  const first = getFirst([1, 2, 3])
+  const first = getFirst<number>([1, 2, 3])
   if (first === 1) {
     results.push('✅ getFirst 函数正确')
   }
 
-  if (getLength('hello') === 5) {
+  if (getLength<string>('hello') === 5) {
     results.push('✅ getLength 函数正确')
   }
 

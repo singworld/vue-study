@@ -21,7 +21,6 @@
 // - age?: number (可选)
 
 interface User {
-  // TODO(human): 补充以下属性
   id: number
   name: string
   email: string
@@ -65,6 +64,10 @@ const admin1: Admin = {
 
 type Product = {
   // 在这里定义...
+  id: number
+  name: string
+  price: number
+  description?: string
 }
 
 // ==================== 第四部分：type 交叉类型 ====================
@@ -84,9 +87,7 @@ type PriceInfo = {
 // TODO(human): 使用交叉类型 & 组合上面两个类型
 // 提示：type FullProduct = BaseProduct & PriceInfo
 
-type FullProduct = {
-  // 改用交叉类型实现
-}
+type FullProduct = BaseProduct & PriceInfo
 
 // ==================== 第五部分：实战练习 ====================
 
@@ -100,6 +101,10 @@ type FullProduct = {
 
 type ApiResponse = {
   // 在这里定义...
+  code: number
+  message: string
+  data: unknown
+  timestamp?: number
 }
 
 // TODO(human): 使用字面量类型优化 code
