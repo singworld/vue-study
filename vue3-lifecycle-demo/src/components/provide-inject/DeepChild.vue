@@ -14,7 +14,8 @@ import { inject } from 'vue'
 // 示例语法: const xxx = inject('key', '默认值')
 
 const injectedTheme = null    // 替换为正确的 inject 调用
-const injectedUsername = null // 替换为正确的 inject 调用
+// const injectedUsername = null // 替换为正确的 inject 调用
+const injectedUsername = inject('username', '默认值')
 </script>
 
 <template>

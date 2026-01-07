@@ -6,6 +6,10 @@ import LifecycleDemo from './components/lifecycle/LifecycleDemo.vue'
 import ChildComponent from './components/communication/ChildComponent.vue'
 import ExposeDemo from './components/communication/ExposeDemo.vue'
 import MiddleComponent from './components/provide-inject/MiddleComponent.vue'
+import ExercisesPage from './components/exercises/ExercisesPage.vue'
+
+// ========== 页面切换 ==========
+const showExercises = ref(false)
 
 // ========== 生命周期演示相关 ==========
 const showLifecycleDemo = ref(false)
@@ -91,6 +95,27 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
+    <!-- 页面切换按钮 -->
+    <div class="page-toggle">
+      <button
+        :class="{ active: !showExercises }"
+        @click="showExercises = false"
+      >
+        📖 学习示例
+      </button>
+      <button
+        :class="{ active: showExercises }"
+        @click="showExercises = true"
+      >
+        📝 综合练习
+      </button>
+    </div>
+
+    <!-- 练习页面 -->
+    <ExercisesPage v-if="showExercises" />
+
+    <!-- 原有学习内容 -->
+    <template v-else>
     <h1>🚀 Vue3 生命周期与组件通信</h1>
 
     <!-- ==================== 生命周期函数演示 ==================== -->
@@ -209,6 +234,7 @@ onMounted(() => {
         </div>
       </div>
     </section>
+    </template>
   </div>
 </template>
 
@@ -451,5 +477,34 @@ input:focus {
   .input-row {
     flex-direction: column;
   }
+}
+
+/* 页面切换按钮 */
+.page-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.page-toggle button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.page-toggle button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.page-toggle button.active {
+  background: white;
+  color: #667eea;
+  font-weight: 600;
 }
 </style>
