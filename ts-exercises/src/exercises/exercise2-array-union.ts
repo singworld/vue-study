@@ -35,19 +35,19 @@ let userId: number | string = 12345                          // 添加 number | 
 // TODO(human): 使用 type 关键字定义一个类型别名
 // 要求：定义 StringOrNumber 类型，表示 string 或 number
 
-// type StringOrNumber = ???
+type StringOrNumber = string | number
 
 // TODO(human): 使用定义好的类型别名
-// const value1: StringOrNumber = 'hello'
-// const value2: StringOrNumber = 100
+const value1: StringOrNumber = 'hello'
+const value2: StringOrNumber = 100
 
 // ==================== 第四部分：实战练习 ====================
 
 // TODO(human): 定义一个状态类型，只能是 'loading' | 'success' | 'error'
 // 提示：这是字面量类型与联合类型的结合
 
-// type Status = ???
-// let currentStatus: Status = 'loading'
+type Status = 'loading' | 'success' | 'error'
+let currentStatus: Status = 'loading'
 
 // ==================== 验证函数（不需要修改）====================
 

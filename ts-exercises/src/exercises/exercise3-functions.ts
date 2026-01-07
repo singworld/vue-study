@@ -16,15 +16,15 @@
 // TODO(human): 为函数添加参数和返回值类型
 // 提示：(参数: 类型): 返回类型
 
-function add(a, b) {
+function add(a: number, b: number) :number {
   return a + b
 }
 
-function greet(name) {
+function greet(name: string) :string {
   return `Hello, ${name}!`
 }
 
-function isEven(num) {
+function isEven(num: number) :boolean {
   return num % 2 === 0
 }
 
