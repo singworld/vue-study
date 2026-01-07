@@ -58,6 +58,7 @@ logs-dev-new/
 
 # macOS
 .DS_Store
+._*
 
 # Windows
 Thumbs.db
